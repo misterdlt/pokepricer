@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cal Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Cal Sans", sans-serif;
+}
+
+:root {
+  --primary-color: limegreen;
+  --primary-color-hover: hsl(from var(--primary-color) h s calc(l - 5));
+  --bg-color: #fff;
+  --bg-color-hover: hsl(from var(--bg-color) h s calc(l - 10));
+  --bg-secondary-color: #f0f0f0;
+  --text-color: #000;
+  --text-secondary-color: #979797;
+  --border-color: #ccc;
+}
+
+html[data-theme="dark"] {
+  --bg-color: #121212;
+  --bg-secondary-color: #1a1a1a;
+  --text-color: #fff;
+  --text-secondary-color: #b3b3b3;
+  --border-color: #2a2a2a;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1200px;
+}

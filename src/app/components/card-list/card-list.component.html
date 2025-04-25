@@ -1,0 +1,5 @@
+<div class="card-list">
+  <div *ngIf="cardService.cards().length > 0" class="container">
+    <app-card *ngFor="let card of cardService.cards()" [card]="card"></app-card>
+  </div>
+</div>

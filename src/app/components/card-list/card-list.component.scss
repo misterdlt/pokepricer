@@ -1,0 +1,16 @@
+.card-list {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--bg-secondary-color);
+
+  .container {
+    gap: 20px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    grid-auto-columns: 1fr;
+    padding: 30px 20px 20px 20px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+}

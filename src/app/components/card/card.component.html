@@ -1,0 +1,34 @@
+<div class="card">
+  <a [routerLink]="['/card', card.id]" [state]="{ card: card }">
+    <img [src]="card.images.small" [alt]="card.name" class="card-image" />
+  </a>
+  <div class="card-info">
+    <div class="card-name">
+      <a [routerLink]="['/card', card.id]" [state]="{ card: card }" class="card-name-link">
+        <h3>{{ card.name }}</h3>
+      </a>
+      <span>{{ "#" + card.number }}</span>
+    </div>
+    <div class="set-info">
+      <img
+        [src]="card.set.images.symbol"
+        [alt]="card.set.name"
+        class="set-image"
+      />
+      <span>
+        <p>{{ card.set.name }}</p>
+        <p>{{ card.set.series }}</p>
+      </span>
+    </div>
+  </div>
+  <div class="card-price">
+    <div class="card-price-item">
+      <a href="{{ card.tcgplayer?.url }}" target="_blank">TCGPlayer</a>
+      <p *ngIf="card.tcgplayer?.prices">${{ getTCGPlayerPrice() }}</p>
+    </div>
+    <div class="card-price-item">
+      <a href="{{ card.cardmarket?.url }}" target="_blank">Cardmarket</a>
+      <p *ngIf="card.cardmarket?.prices">${{ getCardmarketPrice() }}</p>
+    </div>
+  </div>
+</div>

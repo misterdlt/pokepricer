@@ -1,0 +1,34 @@
+.nav {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  justify-content: space-between;
+  font-family: "Cal Sans", sans-serif;
+  background: var(--bg-secondary-color);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text-color);
+
+  span {
+    color: var(--primary-color);
+  }
+}
+
+.menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-actions {
+  gap: 1rem;
+  display: flex;
+
+  button {
+    color: var(--text-color);
+  }
+}

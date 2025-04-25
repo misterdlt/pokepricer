@@ -1,0 +1,7 @@
+<div class="suggestions-container" *ngIf="show && suggestions.length > 0">
+  <ul>
+    <li *ngFor="let suggestion of suggestions" (mousedown)="onSelect(suggestion)">
+      {{ suggestion }}
+    </li>
+  </ul>
+</div>

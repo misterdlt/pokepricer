@@ -1,0 +1,113 @@
+// Using similar styles to the React version provided earlier
+.card-details-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.card-details-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.card-details-image {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-details-info {
+  flex: 1;
+
+  p {
+    margin-bottom: 0.8rem;
+    color: #555;
+  }
+}
+
+.price-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+
+  h4 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  p small {
+    color: #888;
+    font-size: 0.8rem;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  text-align: center;
+  color: #555;
+  font-size: 1.2rem;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .card-details-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-details-image {
+    max-width: 80%;
+    margin-bottom: 1.5rem;
+  }
+}

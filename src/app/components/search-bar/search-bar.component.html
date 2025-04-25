@@ -1,0 +1,36 @@
+<span class="search-bar-container">
+  <span class="search-bar">
+    <input
+      type="text"
+      placeholder="Search for a card..."
+      aria-label="Card Search Input"
+      [value]="searchTerm()"
+      (input)="onInputChange($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keyup.enter)="onSearch()"
+    />
+    <app-button
+      label="Search"
+      theme="primary"
+      size="medium"
+      shape="rounded"
+      (click)="onSearch()"
+    />
+    <label class="file-upload-label" for="file-upload" title="Search with Image">
+      <ng-icon name="ionCamera" class="file-upload-icon"></ng-icon>
+      <input
+        id="file-upload"
+        class="file-upload-input"
+        type="file"
+        accept="image/*"
+        (change)="onImageSearch($event)"
+      />
+    </label>
+  </span>
+  <app-suggestions
+    [suggestions]="filteredSuggestions()"
+    [show]="showSuggestions()"
+    (suggestionSelected)="selectSuggestion($event)"
+  ></app-suggestions>
+</span>

@@ -1,0 +1,64 @@
+<!-- Show loading indicator -->
+<div *ngIf="isLoading" class="loading-container">
+  <p>Loading card details...</p>
+  <!-- Add a spinner or animation here if desired -->
+</div>
+
+<!-- Show card details only when not loading and card exists -->
+<div class="card-details-container" *ngIf="!isLoading && card; else notFoundOrError">
+  <a routerLink="/" class="back-link">← Back to Search</a>
+  <h2>{{ card.name }}</h2>
+  <div class="card-details-content">
+    <img [src]="card.images?.large" [alt]="card.name" class="card-details-image" />
+    <div class="card-details-info">
+      <p *ngIf="card.set">
+        <strong>Set:</strong> {{ card.set?.name }} ({{ card.set?.series }})
+      </p>
+      <p>
+        <strong>Number:</strong> {{ card.number }} / {{ card.set?.printedTotal }}
+      </p>
+      <p *ngIf="card.rarity"><strong>Rarity:</strong> {{ card.rarity }}</p>
+
+      <!-- Cardmarket Prices -->
+      <div class="price-section" *ngIf="card.cardmarket">
+        <h4>Cardmarket Prices (€)</h4>
+        <ul *ngIf="getPriceEntries(card.cardmarket.prices).length > 0; else noMarketPrices">
+          <li *ngFor="let entry of getPriceEntries(card.cardmarket.prices)">
+            {{ formatPriceKey(entry[0]) }}: {{ entry[1] }}
+          </li>
+        </ul>
+        <ng-template #noMarketPrices>
+          <p>No price data available from Cardmarket.</p>
+        </ng-template>
+        <p *ngIf="card.cardmarket.updatedAt"><small>Last updated: {{ card.cardmarket.updatedAt | date:'short' }}</small></p>
+        <a *ngIf="card.cardmarket.url" [href]="card.cardmarket.url" target="_blank" rel="noopener noreferrer">View on Cardmarket</a>
+      </div>
+
+      <!-- TCGPlayer Prices -->
+      <div class="price-section" *ngIf="card.tcgplayer">
+        <h4>TCGPlayer Prices ($)</h4>
+         <ul *ngIf="getPriceEntries(card.tcgplayer.prices).length > 0; else noTcgPrices">
+          <li *ngFor="let entry of getPriceEntries(card.tcgplayer.prices)">
+            {{ formatPriceKey(entry[0]) }}: {{ entry[1] }}
+          </li>
+        </ul>
+         <ng-template #noTcgPrices>
+          <p>No price data available from TCGPlayer.</p>
+        </ng-template>
+        <p *ngIf="card.tcgplayer.updatedAt"><small>Last updated: {{ card.tcgplayer.updatedAt | date:'short' }}</small></p>
+        <a *ngIf="card.tcgplayer.url" [href]="card.tcgplayer.url" target="_blank" rel="noopener noreferrer">View on TCGPlayer</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Combined template for error or initial not found state -->
+<ng-template #notFoundOrError>
+  <div *ngIf="!isLoading" class="card-details-container">
+     <h2 *ngIf="error">Error</h2>
+     <h2 *ngIf="!error">Card Details Not Found</h2>
+     <p *ngIf="error">{{ error }}</p>
+     <p *ngIf="!error">Could not load card details. Please navigate from the search results or check the ID.</p>
+     <a routerLink="/" class="back-link">← Go back to Home</a>
+  </div>
+</ng-template>

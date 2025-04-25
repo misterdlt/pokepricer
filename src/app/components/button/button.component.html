@@ -1,0 +1,20 @@
+<button
+  class="button"
+  [ngClass]="{
+    'button--primary': theme === 'primary',
+    'button--secondary': theme === 'secondary',
+    'button--small': size === 'small',
+    'button--medium': size === 'medium',
+    'button--large': size === 'large',
+    'button--rounded': shape === 'rounded',
+    'button--square': shape === 'square',
+    'button--circle': shape === 'circle'
+  }"
+>
+  <ng-container *ngIf="icon">
+    <ng-icon [name]="icon" [size]="size"></ng-icon>
+  </ng-container>
+  <ng-container *ngIf="label">
+    {{ label }}
+  </ng-container>
+</button>

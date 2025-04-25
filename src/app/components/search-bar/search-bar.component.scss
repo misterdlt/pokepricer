@@ -1,0 +1,79 @@
+.search-bar-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.search-bar {
+  display: flex;
+  max-width: 500px;
+  position: relative;
+  align-items: center;
+  border-radius: 50px;
+  padding: 5px 5px 5px 15px;
+  justify-content: space-between;
+  border: 1px solid var(--border-color);
+
+  input[type="text"] {
+    margin: 0;
+    flex-grow: 1;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border: none;
+    outline: none;
+    outline-width: 0;
+  }
+}
+
+.search-bar:focus-within {
+  border-color: var(--primary-color);
+}
+
+.search-bar:hover {
+  transition: all 0.3s ease;
+  border-color: var(--primary-color);
+}
+
+// File Upload Button Styles
+.file-upload-label {
+  padding: 5px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  display: inline-block;
+  color: var(--text-secondary-color);
+  border: 1px solid var(--border-color);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.file-upload-input {
+  display: none; // Hide the actual file input
+}
+
+// OCR Status Styles
+.ocr-status {
+  position: absolute;
+  bottom: -25px; // Position below the search bar
+  left: 0;
+  width: 100%;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 2px 5px;
+  border-radius: 4px;
+
+  &.loading {
+    color: #555;
+    background-color: #eee;
+  }
+
+  &.error {
+    color: white;
+    background-color: #dc3545; // Bootstrap danger color
+  }
+}
