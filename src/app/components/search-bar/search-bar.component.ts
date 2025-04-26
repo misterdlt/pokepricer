@@ -1,22 +1,14 @@
-import {
-  Component,
-  inject,
-  signal,
-  OnInit,
-  computed,
-  effect,
-} from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { PokemonTcgApiService } from '../../services/pokemon-tcg/pokemon-tcg-api.service';
 import { CardService } from '../../services/card-service/card.service';
 import { NameServiceService } from '../../services/pokemon-names/name-service.service';
-import { NgFor, NgIf } from '@angular/common';
 import { SuggestionsComponent } from '../suggestions/suggestions.component';
 import { ionCamera } from '@ng-icons/ionicons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 
 @Component({
-  imports: [ButtonComponent, NgFor, NgIf, SuggestionsComponent, NgIcon],
+  imports: [ButtonComponent, SuggestionsComponent, NgIcon],
   selector: 'app-search-bar',
   standalone: true,
   templateUrl: './search-bar.component.html',
