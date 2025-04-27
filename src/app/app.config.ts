@@ -1,6 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import {
   provideClientHydration,
@@ -19,7 +18,7 @@ export const appConfig: ApplicationConfig = {
           // Only add X-API-Key header for Pokemon TCG API calls
           if (req.url.startsWith('https://api.pokemontcg.io/v2/')) {
             req = req.clone({
-              headers: req.headers.set('X-Api-Key', environment.pokemonTcgApiKey),
+              headers: req.headers.set('X-Api-Key', import.meta.env.POKEMON_TCG_API_KEY ?? ''),
             });
           }
           return next(req);
