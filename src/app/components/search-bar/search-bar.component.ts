@@ -4,6 +4,7 @@ import { PokemonTcgApiService } from '../../services/pokemon-tcg/pokemon-tcg-api
 import { CardService } from '../../services/card-service/card.service';
 import { NameServiceService } from '../../services/pokemon-names/name-service.service';
 import { SuggestionsComponent } from '../suggestions/suggestions.component';
+import { AzureVisionService } from '../../services/azure-vision/azure-vision.service';
 import { ionCamera } from '@ng-icons/ionicons';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 
@@ -20,7 +21,7 @@ export class SearchBarComponent implements OnInit {
   cardService = inject(CardService);
   nameService = inject(NameServiceService);
   pokemonTcgApiService = inject(PokemonTcgApiService);
-
+  azureVisionService = inject(AzureVisionService);
   filteredSuggestions = signal<string[]>([]);
   showSuggestions = signal(false);
 
@@ -40,6 +41,13 @@ export class SearchBarComponent implements OnInit {
   onImageSearch(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     console.log(file);
+    if (file) {
+      this.azureVisionService.analyzeImage(file).subscribe((result) => {
+        console.log(result);
+        this.searchTerm.set(result.cardName ?? '');
+        this.onSearch(result.cardNumber ?? '');
+      });
+    }
   }
 
   updateSuggestions() {
@@ -76,10 +84,10 @@ export class SearchBarComponent implements OnInit {
     this.onSearch();
   }
 
-  onSearch() {
+  onSearch(number?: string) {
     this.showSuggestions.set(false);
     this.pokemonTcgApiService
-      .findCards(this.searchTerm())
+      .findCards(this.searchTerm(), number)
       .subscribe((response) => {
         console.log(response);
         this.cardService.updateCards(response.data);

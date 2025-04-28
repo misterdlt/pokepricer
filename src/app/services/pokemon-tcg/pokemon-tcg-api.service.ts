@@ -11,8 +11,12 @@ export class PokemonTcgApiService {
 
   constructor(private http: HttpClient) {}
 
-  findCards(name: string): Observable<CardResponse> {
-    return this.http.get<CardResponse>(`${this.apiUrl}/cards?q=name:${name}`);
+  findCards(name: string, number?: string): Observable<CardResponse> {
+    let query = `name:"${name}"`;
+    if (number) {
+      query += ` number:"${number}"`;
+    }
+    return this.http.get<CardResponse>(`${this.apiUrl}/cards?q=${query}`);
   }
 
   getCard(id: string): Observable<SingleCardResponse> {
@@ -38,5 +42,4 @@ export class PokemonTcgApiService {
   getRarity(id: string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/rarities/${id}`);
   }
-
 }
