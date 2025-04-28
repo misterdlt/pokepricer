@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
           // Only add X-API-Key header for Pokemon TCG API calls
           if (req.url.startsWith('https://api.pokemontcg.io/v2/')) {
             req = req.clone({
-              headers: req.headers.set('X-Api-Key', import.meta.env.POKEMON_TCG_API_KEY ?? ''),
+              headers: req.headers.set('X-Api-Key', import.meta.env['NG_APP_POKEMON_TCG_API_KEY'] ?? ''),
             });
           }
           return next(req);
