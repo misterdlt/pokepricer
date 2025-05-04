@@ -5,7 +5,41 @@
     <a>Collection</a>
   </div>
   <div class="nav-actions">
-    <app-button label="Login" theme="primary" size="medium" />
-    <app-button icon="ionSettingsSharp" theme="secondary" size="medium" shape="circle" />
+    <app-button
+      icon="ionSettingsSharp"
+      theme="secondary"
+      size="medium"
+      shape="circle"
+      (click)="toggleSettingsMenu()"
+    />
+  </div>
+  <div
+    class="settings-menu"
+    *ngIf="showSettingsMenu"
+    (mouseleave)="toggleSettingsMenu()"
+  >
+    <div class="settings-menu-item">
+      <label for="theme-color">Theme Color</label>
+      <input
+        type="color"
+        id="theme-color"
+        #themeColorInput
+        [value]="primaryColor()"
+        (input)="onColorChange($event)"
+      />
+    </div>
+    <div class="settings-menu-item">
+      <label for="dark-mode">Dark Mode</label>
+      <label class="switch">
+        <input
+          type="checkbox"
+          id="dark-mode"
+          #darkModeToggle
+          [checked]="darkMode()"
+          (change)="onDarkModeToggle($event)"
+        />
+        <span class="slider"></span>
+      </label>
+    </div>
   </div>
 </nav>

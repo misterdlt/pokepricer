@@ -1,8 +1,9 @@
 .hero {
-  min-height: 30vh;
   display: flex;
+  min-height: 30vh;
   align-items: center;
   justify-content: center;
+  background-color: var(--bg-color);
 
   .container {
     width: 100%;
@@ -21,6 +22,7 @@
       font-weight: 700;
       line-height: 3rem;
       text-align: center;
+      color: var(--text-color);
     }
   }
 }

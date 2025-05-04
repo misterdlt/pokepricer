@@ -27,8 +27,32 @@
 .nav-actions {
   gap: 1rem;
   display: flex;
+  align-items: center;
 
   button {
     color: var(--text-color);
+  }
+}
+
+.settings-menu {
+  top: 80px;
+  right: 2px;
+  width: 200px;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  border-radius: 0.5rem;
+  background: var(--bg-secondary-color);
+
+  .settings-menu-item {
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .settings-menu-item:last-child {
+    border-bottom: none;
   }
 }

@@ -36,7 +36,9 @@
           "
         >
           <li *ngFor="let entry of getPriceEntries(card.cardmarket.prices)">
+            @if (entry[1] !== 0) {
             {{ formatPriceKey(entry[0]) }}: {{ entry[1] }}
+            }
           </li>
         </ul>
         <ng-template #noMarketPrices>

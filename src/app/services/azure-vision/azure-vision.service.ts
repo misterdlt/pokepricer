@@ -8,10 +8,7 @@ import {
   map,
   switchMap,
   catchError,
-  retry,
   filter,
-  delay,
-  repeat,
   takeWhile,
   tap,
 } from 'rxjs';
@@ -30,7 +27,7 @@ interface AzureReadOperationResult {
 
 export interface OcrResult {
   cardNumber: string | null;
-  cardName: string | null; // We'll add logic for this later if needed
+  cardName: string | null;
   fullText: string;
 }
 
@@ -40,7 +37,6 @@ export interface OcrResult {
 export class AzureVisionService {
   private http = inject(HttpClient);
 
-  // Read environment variables safely
   private visionApiUrl = import.meta.env['NG_APP_AZURE_VISION_AI_REST_URL'];
   private visionApiKey = import.meta.env['NG_APP_AZURE_VISION_AI_KEY'];
 
@@ -49,7 +45,6 @@ export class AzureVisionService {
 
   analyzeImage(imageData: Blob): Observable<OcrResult> {
     if (!this.visionApiUrl || !this.visionApiKey) {
-      console.error('Azure Vision API URL or Key is not configured.');
       return throwError(
         () => new Error('Azure Vision credentials not configured.')
       );
@@ -67,7 +62,6 @@ export class AzureVisionService {
         observe: 'response',
       })
       .pipe(
-        tap((res) => console.log('Azure Initial Response Status:', res.status)),
         // --- Step 2: Extract Operation-Location URL and Poll ---
         switchMap((response) => {
           const operationUrl = response.headers.get('Operation-Location');
@@ -81,7 +75,6 @@ export class AzureVisionService {
         // --- Step 3: Parse the successful result ---
         map((result) => this.parseOcrResult(result)),
         catchError((error) => {
-          console.error('Error during Azure Vision API call:', error);
           return throwError(() => new Error('Failed to analyze image.'));
         })
       );
@@ -152,10 +145,13 @@ export class AzureVisionService {
       // Find sequences of letters, spaces, hyphens, and apostrophes
       const candidates = line.match(/[A-Za-z\s\-\']+/g);
       if (candidates) {
-        candidates.forEach(candidate => {
+        candidates.forEach((candidate) => {
           const trimmedCandidate = candidate.trim();
           // Basic filter: avoid short fragments, update if longer
-          if (trimmedCandidate.length > longestCandidate.length && trimmedCandidate.length >= 3) {
+          if (
+            trimmedCandidate.length > longestCandidate.length &&
+            trimmedCandidate.length >= 3
+          ) {
             longestCandidate = trimmedCandidate;
           }
         });
@@ -165,19 +161,14 @@ export class AzureVisionService {
     if (longestCandidate) {
       // Apply common corrections
       cardName = longestCandidate
-        .replace(/\by\s+STAR\b/gi, 'VSTAR')   // y STAR -> VSTAR (case insensitive)
-        .replace(/\bv\s+star\b/gi, 'VSTAR')   // v star -> VSTAR
-        .replace(/\bv\s+max\b/gi, 'VMAX');    // v max -> VMAX
-      // Add more replacements if needed
+        .replace(/\by\s+STAR\b/gi, 'VSTAR') // y STAR -> VSTAR (case insensitive)
+        .replace(/\bv\s+star\b/gi, 'VSTAR') // v star -> VSTAR
+        .replace(/\bv\s+max\b/gi, 'VMAX') // v max -> VMAX
+        .replace(/\bBASIC\b/gi, "");
 
       // Remove potential leading/trailing non-alphanumeric if regex didn't catch all
       cardName = cardName.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, '').trim();
     }
-
-    // Fallback if no good candidate was found (optional)
-    // if (!cardName && extractedLines.length > 1) { 
-    //    cardName = extractedLines[1]; 
-    // }
 
     return {
       cardNumber,
